@@ -29,18 +29,19 @@ public class BdLivro {
     // CREATE - Adiciona um registro
     public void adicionaLivro(Livro l) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO livro(exemplar, autor, edicao, ano, disponibilidade)"
-                + "VALUES(?, ?, ?, ?, ?)";       
+        String sql = "INSERT INTO livro(id_genero, exemplar, autor, edicao, ano, disponibilidade)"
+                + "VALUES(?,?, ?, ?, ?, ?)";       
         PreparedStatement stmt;
         // stmt recebe o comando SQL
         stmt = this.conexao.prepareStatement(sql);
         
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setString(1, l.getExemplar());
-        stmt.setString(2, l.getAutor());
-        stmt.setString(3, String.valueOf(l.getEdicao()));
-        stmt.setString(4, String.valueOf(l.getAno()));
-        stmt.setString(5, l.getDisponibilidade());
+        stmt.setString(1, String.valueOf(l.getId_genero()));
+        stmt.setString(2, l.getExemplar());
+        stmt.setString(3, l.getAutor());
+        stmt.setString(4, String.valueOf(l.getEdicao()));
+        stmt.setString(5, String.valueOf(l.getAno()));
+        stmt.setString(6, l.getDisponibilidade());
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();

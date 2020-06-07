@@ -1,12 +1,18 @@
 
 package view;
 
+import controller.BdGenero;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Livro;
 import controller.BdLivro;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import model.Genero;
 
 public class JFLivro extends javax.swing.JFrame {  
    
@@ -15,11 +21,22 @@ public class JFLivro extends javax.swing.JFrame {
     /**
      * Creates new form Cliente
      */
+    
+    Vector<Genero> generos;
+    BdGenero geno;
     public JFLivro() {
         initComponents();
-        
         // Desabilita os campos ao iniciar a janela
         desabilitaCampos();
+        
+        try {
+            geno = new BdGenero();
+            generos = geno.getListaId();
+            jComboBox1.setModel(new DefaultComboBoxModel(generos));
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, e);
+        }
     }
     
     JFLivro(JFPrincipal telaPrincipal) {
@@ -45,12 +62,14 @@ public class JFLivro extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jT1Exemplar = new javax.swing.JTextField();
-        jT2Autor = new javax.swing.JTextField();
-        jT3Edicao = new javax.swing.JTextField();
-        jT4Ano = new javax.swing.JTextField();
-        jT5Status = new javax.swing.JTextField();
+        jT2Exemplar = new javax.swing.JTextField();
+        jT3Autor = new javax.swing.JTextField();
+        jT4Edicao = new javax.swing.JTextField();
+        jT5Ano = new javax.swing.JTextField();
+        jT6Status = new javax.swing.JTextField();
         jT0Id = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jTPesquisar = new javax.swing.JTextField();
         jBPesquisar = new javax.swing.JButton();
@@ -86,6 +105,14 @@ public class JFLivro extends javax.swing.JFrame {
 
         jLabel7.setText("ID: ");
 
+        jLabel6.setText("Gênero");
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -102,47 +129,58 @@ public class JFLivro extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jT5Status)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jT3Edicao, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jT6Status)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jT4Edicao, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                            .addComponent(jT5Ano))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jT2Exemplar)
+                                    .addComponent(jT3Autor))
+                                .addContainerGap())
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jT0Id, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jT4Ano))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jT1Exemplar)
-                            .addComponent(jT2Autor))
-                        .addContainerGap())))
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jT0Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jT1Exemplar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jT2Exemplar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jT2Autor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jT3Autor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jT3Edicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jT4Edicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jT4Ano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jT5Ano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jT5Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jT6Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54))
         );
 
@@ -322,11 +360,12 @@ public class JFLivro extends javax.swing.JFrame {
         int linhaSelecionada = jTablePesquisa.getSelectedRow();
         
         jT0Id.setText(jTablePesquisa.getValueAt(linhaSelecionada, 0).toString());
-        jT1Exemplar.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 1));
-        jT2Autor.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 2));
-        jT3Edicao.setText(jTablePesquisa.getValueAt(linhaSelecionada, 3).toString());
-        jT4Ano.setText(jTablePesquisa.getValueAt(linhaSelecionada, 4).toString());
-        jT5Status.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 5));        
+        jT1Genero.setText(jTablePesquisa.getValueAt(linhaSelecionada, 1));
+        jT2Exemplar.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 2));
+        jT3Autor.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 3));
+        jT4Edicao.setText(jTablePesquisa.getValueAt(linhaSelecionada, 4).toString());
+        jT5Ano.setText(jTablePesquisa.getValueAt(linhaSelecionada, 5).toString());
+        jT6Status.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 6));        
         
         // Ao selecionar um registro, os campos são ativados possibilitando fazer alterações
         habilitaCampos();
@@ -359,27 +398,33 @@ public class JFLivro extends javax.swing.JFrame {
     private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_jBSairActionPerformed
-    
-    
-    
-    
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     /* ----CADASTRO-> */
     // MÉTODOS:
-    
+  
     // Método p/ cadastrar um registro no banco de dados.
     private void cadastraRegistro() {
         // Antes de cadastrar, verifica se o usuário está com algum registro selecionado
-        if (jT1Exemplar.isEditable() && jT0Id.getText().equals("")) {
+        if (jT2Exemplar.isEditable() && jT0Id.getText().equals("")) {
             // Antes de cadastrar, verifica se os campos foram preenchidos
             if (verificaDados()) {
                 try {
                     Livro l = new Livro();
-
-                    l.setExemplar(jT1Exemplar.getText());
-                    l.setAutor(jT2Autor.getText());
-                    l.setEdicao(Byte.valueOf(jT3Edicao.getText()));
-                    l.setAno(Short.valueOf(jT4Ano.getText()));
-                    l.setDisponibilidade(jT5Status.getText());                  
+                    
+                    String id_genero =  String.valueOf(jComboBox1.getSelectedItem());
+                    Integer id_generow = Integer.valueOf(id_genero);
+                    System.out.println(id_generow);
+                    
+                    l.setExemplar(jT2Exemplar.getText());
+                    l.setId_genero(id_generow);
+                    l.setAutor(jT3Autor.getText());
+                    l.setEdicao(Byte.valueOf(jT4Edicao.getText()));
+                    l.setAno(Short.valueOf(jT5Ano.getText()));
+                    l.setDisponibilidade(jT6Status.getText());                  
 
                     BdLivro d = new BdLivro();
 
@@ -390,6 +435,7 @@ public class JFLivro extends javax.swing.JFrame {
                     desabilitaCampos();
 
                 } catch (SQLException ex) {
+                    System.out.println(ex);
                     JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar dados.");
                 }
             }
@@ -398,11 +444,13 @@ public class JFLivro extends javax.swing.JFrame {
         }
     }
     
+    
+    
     // Método p/ validação do formulário
     private boolean verificaDados() {
-        if ((!jT1Exemplar.getText().equals("")) && (!jT2Autor.getText().equals("")) 
-                && (!jT3Edicao.getText().equals("")) && (!jT4Ano.getText().equals(""))
-                && (!jT5Status.getText().equals(""))) {
+        if ((!jT2Exemplar.getText().equals("")) && (!jT3Autor.getText().equals("")) 
+                && (!jT4Edicao.getText().equals("")) && (!jT5Ano.getText().equals(""))
+                && (!jT6Status.getText().equals(""))) {
             return true;
         }
         JOptionPane.showMessageDialog(rootPane, "Dados imcompletos.");
@@ -418,7 +466,7 @@ public class JFLivro extends javax.swing.JFrame {
     // MÉTODOS:
     
     // Edita os campos e colunas da tabela de resultados
-    DefaultTableModel tmLivro = new DefaultTableModel(null, new String[]{"Id", "Exemplar", "Autor", "Edição", "Ano", "Disponibilidade"});
+    DefaultTableModel tmLivro = new DefaultTableModel(null, new String[]{"Id","Genero","Exemplar", "Autor", "Edição", "Ano", "Disponibilidade"});
     List<Livro> livros;
     
     // Lista a quantidade de resultado, de acordo com o nome passado no campo pesquisa
@@ -441,16 +489,17 @@ public class JFLivro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Nenhum registro encontrado.");
         } else {            
             // Linha em branco usada no for, para cada registro é criada uma nova linha 
-            String[] linha = new String[] {null, null, null, null, null, null, null};
+            String[] linha = new String[] {null, null, null, null, null, null, null, null};
             // P/ cada registro é criada uma nova linha, cada linha recebe os campos do registro
             for (int i = 0; i < livros.size(); i++) {
                 tmLivro.addRow(linha);
                 tmLivro.setValueAt(livros.get(i).getId(), i, 0);
-                tmLivro.setValueAt(livros.get(i).getExemplar(), i, 1);
-                tmLivro.setValueAt(livros.get(i).getAutor(), i, 2);
-                tmLivro.setValueAt(livros.get(i).getEdicao(), i, 3);
-                tmLivro.setValueAt(livros.get(i).getAno(), i, 4);
-                tmLivro.setValueAt(livros.get(i).getDisponibilidade(), i, 5);               
+                tmLivro.setValueAt(livros.get(i).getId_genero(), i, 1);
+                tmLivro.setValueAt(livros.get(i).getExemplar(), i, 2);
+                tmLivro.setValueAt(livros.get(i).getAutor(), i, 3);
+                tmLivro.setValueAt(livros.get(i).getEdicao(), i, 4);
+                tmLivro.setValueAt(livros.get(i).getAno(), i, 5);
+                tmLivro.setValueAt(livros.get(i).getDisponibilidade(), i, 6);               
             }            
         }
     }
@@ -521,11 +570,11 @@ public class JFLivro extends javax.swing.JFrame {
                 BdLivro d = new BdLivro();
                 
                 l.setId(Integer.valueOf(jT0Id.getText()));
-                l.setExemplar(jT1Exemplar.getText());
-                l.setAutor(jT2Autor.getText());
-                l.setEdicao(Byte.valueOf(jT3Edicao.getText()));
-                l.setAno(Short.valueOf(jT4Ano.getText())); 
-                l.setDisponibilidade(jT5Status.getText());          
+                l.setExemplar(jT2Exemplar.getText());
+                l.setAutor(jT3Autor.getText());
+                l.setEdicao(Byte.valueOf(jT4Edicao.getText()));
+                l.setAno(Short.valueOf(jT5Ano.getText())); 
+                l.setDisponibilidade(jT6Status.getText());          
                        
                 d.altera(l);
                 
@@ -549,31 +598,31 @@ public class JFLivro extends javax.swing.JFrame {
     // Limpa os campos do formulário
     private void limpaCampos() {
         jT0Id.setText("");
-        jT1Exemplar.setText("");
-        jT2Autor.setText("");
-        jT3Edicao.setText("");
-        jT4Ano.setText("");
-        jT5Status.setText("");
+        jT2Exemplar.setText("");
+        jT3Autor.setText("");
+        jT4Edicao.setText("");
+        jT5Ano.setText("");
+        jT6Status.setText("");
     }
     
     // Desabilita os campos do formulário
     private void desabilitaCampos() {
         jT0Id.setEditable(false);
-        jT1Exemplar.setEditable(false);
-        jT2Autor.setEditable(false);
-        jT3Edicao.setEditable(false);
-        jT4Ano.setEditable(false);
-        jT5Status.setEditable(false);
+        jT2Exemplar.setEditable(false);
+        jT3Autor.setEditable(false);
+        jT4Edicao.setEditable(false);
+        jT5Ano.setEditable(false);
+        jT6Status.setEditable(false);
     }
     
     // Habilita os campos do formulário
     private void habilitaCampos() {
         
-        jT1Exemplar.setEditable(true);
-        jT2Autor.setEditable(true);
-        jT3Edicao.setEditable(true);
-        jT4Ano.setEditable(true);
-        jT5Status.setEditable(true);
+        jT2Exemplar.setEditable(true);
+        jT3Autor.setEditable(true);
+        jT4Edicao.setEditable(true);
+        jT5Ano.setEditable(true);
+        jT6Status.setEditable(true);
     }
     
     /* <-OUTROS---- */
@@ -627,11 +676,13 @@ public class JFLivro extends javax.swing.JFrame {
     private javax.swing.JButton jBNovo;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBSair;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -639,11 +690,11 @@ public class JFLivro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jT0Id;
-    private javax.swing.JTextField jT1Exemplar;
-    private javax.swing.JTextField jT2Autor;
-    private javax.swing.JTextField jT3Edicao;
-    private javax.swing.JTextField jT4Ano;
-    private javax.swing.JTextField jT5Status;
+    private javax.swing.JTextField jT2Exemplar;
+    private javax.swing.JTextField jT3Autor;
+    private javax.swing.JTextField jT4Edicao;
+    private javax.swing.JTextField jT5Ano;
+    private javax.swing.JTextField jT6Status;
     private javax.swing.JTextField jTPesquisar;
     private javax.swing.JTable jTablePesquisa;
     // End of variables declaration//GEN-END:variables

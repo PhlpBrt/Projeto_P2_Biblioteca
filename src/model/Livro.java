@@ -4,14 +4,16 @@ package model;
 public class Livro {
     
     private int id;
+    private int id_genero;
     private String exemplar;
     private String autor;
     private byte edicao;
     private short ano;
     private String disponibilidade;
 
-    public Livro(int id, String exemplar, String autor, byte edicao, short ano, String disponibilidade) {
+    public Livro(int id, int id_genero, String exemplar, String autor, byte edicao, short ano, String disponibilidade) {
         this.id = id;
+        this.id_genero = id_genero;
         this.exemplar = exemplar;
         this.autor = autor;
         this.edicao = edicao;
@@ -69,4 +71,12 @@ public class Livro {
     public void setDisponibilidade(String disponibilidade) {
         this.disponibilidade = disponibilidade;
     }    
+
+    public int getId_genero() {
+        return id_genero;
+    }
+
+    public void setId_genero(int id_genero) {
+        this.id_genero = id_genero;
+    }
 }
