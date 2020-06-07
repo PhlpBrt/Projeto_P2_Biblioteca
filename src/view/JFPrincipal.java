@@ -30,9 +30,9 @@ public class JFPrincipal extends javax.swing.JFrame {
         jMEmprestimo = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMMulta = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca");
@@ -87,6 +87,18 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
+        jMenu1.setText("Gênero");
+
+        jMenuItem1.setText("Editar Gênero");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
         jMenu4.setText("Sair");
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -99,18 +111,6 @@ public class JFPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenu4);
-
-        jMenu1.setText("Gênero");
-
-        jMenuItem1.setText("Editar Gênero");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 

@@ -355,8 +355,12 @@ public class JFLivro extends javax.swing.JFrame {
     private void jTablePesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePesquisaMouseClicked
         // Salva a posição da linha selecionada na tabela de pesquisa
         int linhaSelecionada = jTablePesquisa.getSelectedRow();
-
-        jT0Id.setText(jTablePesquisa.getValueAt(linhaSelecionada, 0).toString()); 
+        Object id_genero = jTablePesquisa.getValueAt(linhaSelecionada, 1);
+        System.out.println(id_genero);
+        Integer id_generow = (Integer) id_genero;
+        jT0Id.setText(jTablePesquisa.getValueAt(linhaSelecionada, 0).toString());
+        jComboBox1.setSelectedItem(id_generow);
+        //jComboBox1.setName(jTablePesquisa.getValueAt(linhaSelecionada, 1).toString());
         jT2Exemplar.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 2));
         jT3Autor.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 3));
         jT4Edicao.setText(jTablePesquisa.getValueAt(linhaSelecionada, 4).toString());
