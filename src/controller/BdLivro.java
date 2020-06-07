@@ -68,6 +68,7 @@ public class BdLivro {
             
             // "c" -> Registro novo - .setNome recebe o campo do banco de String "nome" 
             l.setId(Integer.valueOf(rs.getString("id_livro")));
+            l.setId_genero(Integer.valueOf(rs.getString("id_genero")));
             l.setExemplar(rs.getString("exemplar"));
             l.setAutor(rs.getString("autor"));
             l.setEdicao(Byte.valueOf(rs.getString("edicao")));

@@ -1,4 +1,3 @@
-
 package view;
 
 import controller.BdGenero;
@@ -9,26 +8,24 @@ import javax.swing.table.DefaultTableModel;
 import model.Livro;
 import controller.BdLivro;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import model.Genero;
 
-public class JFLivro extends javax.swing.JFrame {  
-   
+public class JFLivro extends javax.swing.JFrame {
+
     private JFPrincipal telaPrincipal;
-    
+
     /**
      * Creates new form Cliente
      */
-    
     Vector<Genero> generos;
     BdGenero geno;
+
     public JFLivro() {
         initComponents();
         // Desabilita os campos ao iniciar a janela
         desabilitaCampos();
-        
+
         try {
             geno = new BdGenero();
             generos = geno.getListaId();
@@ -38,12 +35,12 @@ public class JFLivro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e);
         }
     }
-    
+
     JFLivro(JFPrincipal telaPrincipal) {
-        
+
         this();
         this.telaPrincipal = telaPrincipal;
-        
+
     }
 
     /**
@@ -331,46 +328,45 @@ public class JFLivro extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     // BOTÃO NOVO - Precionando
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
         habilitaCampos();
         // Limpa os dados dos campos
-        limpaCampos();        
+        limpaCampos();
     }//GEN-LAST:event_jBNovoActionPerformed
-      
+
     // BOTÃO CADASTRAR - Precionando
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        cadastraRegistro();  
+        cadastraRegistro();
     }//GEN-LAST:event_jBCadastrarActionPerformed
-     
+
     // BOTÃO PESQUISAR - Precionando
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
         // Ao clicar em pesquisar, é executado o método que efetua a pesquisa, e outro método que exibe a lista da pesquisa
-        try {            
-            listaContatos(); 
+        try {
+            listaContatos();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Problemas ao listar contatos.");            
+            JOptionPane.showMessageDialog(rootPane, "Problemas ao listar contatos.");
         }
     }//GEN-LAST:event_jBPesquisarActionPerformed
-    
+
     // TABELA PESQUISA - Selecionando registro com o clique do mouse
     private void jTablePesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePesquisaMouseClicked
         // Salva a posição da linha selecionada na tabela de pesquisa
         int linhaSelecionada = jTablePesquisa.getSelectedRow();
-        
-        jT0Id.setText(jTablePesquisa.getValueAt(linhaSelecionada, 0).toString());
-        jT1Genero.setText(jTablePesquisa.getValueAt(linhaSelecionada, 1));
+
+        jT0Id.setText(jTablePesquisa.getValueAt(linhaSelecionada, 0).toString()); 
         jT2Exemplar.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 2));
         jT3Autor.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 3));
         jT4Edicao.setText(jTablePesquisa.getValueAt(linhaSelecionada, 4).toString());
         jT5Ano.setText(jTablePesquisa.getValueAt(linhaSelecionada, 5).toString());
-        jT6Status.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 6));        
-        
+        jT6Status.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 6));
+
         // Ao selecionar um registro, os campos são ativados possibilitando fazer alterações
         habilitaCampos();
     }//GEN-LAST:event_jTablePesquisaMouseClicked
-    
+
     // BOTÃO EXCLUIR - Precionando
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         try {
@@ -379,7 +375,7 @@ public class JFLivro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro ao excluir registro.");
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
-    
+
     // BOTÃO ALTERAR
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         try {
@@ -390,9 +386,9 @@ public class JFLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
+
         telaPrincipal.setEnabled(true);
-        
+
     }//GEN-LAST:event_formWindowClosed
 
     private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
@@ -405,7 +401,6 @@ public class JFLivro extends javax.swing.JFrame {
 
     /* ----CADASTRO-> */
     // MÉTODOS:
-  
     // Método p/ cadastrar um registro no banco de dados.
     private void cadastraRegistro() {
         // Antes de cadastrar, verifica se o usuário está com algum registro selecionado
@@ -414,17 +409,17 @@ public class JFLivro extends javax.swing.JFrame {
             if (verificaDados()) {
                 try {
                     Livro l = new Livro();
-                    
-                    String id_genero =  String.valueOf(jComboBox1.getSelectedItem());
+
+                    String id_genero = String.valueOf(jComboBox1.getSelectedItem());
                     Integer id_generow = Integer.valueOf(id_genero);
                     System.out.println(id_generow);
-                    
+
                     l.setExemplar(jT2Exemplar.getText());
                     l.setId_genero(id_generow);
                     l.setAutor(jT3Autor.getText());
                     l.setEdicao(Byte.valueOf(jT4Edicao.getText()));
                     l.setAno(Short.valueOf(jT5Ano.getText()));
-                    l.setDisponibilidade(jT6Status.getText());                  
+                    l.setDisponibilidade(jT6Status.getText());
 
                     BdLivro d = new BdLivro();
 
@@ -443,12 +438,10 @@ public class JFLivro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Para cadastrar um novo registro.\nClique em 'Novo'.");
         }
     }
-    
-    
-    
+
     // Método p/ validação do formulário
     private boolean verificaDados() {
-        if ((!jT2Exemplar.getText().equals("")) && (!jT3Autor.getText().equals("")) 
+        if ((!jT2Exemplar.getText().equals("")) && (!jT3Autor.getText().equals(""))
                 && (!jT4Edicao.getText().equals("")) && (!jT5Ano.getText().equals(""))
                 && (!jT6Status.getText().equals(""))) {
             return true;
@@ -456,40 +449,35 @@ public class JFLivro extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Dados imcompletos.");
         return false;
     }
-    
-    /* <-CADASTRO---- */ 
-    
-    
-    
-    
-    /* ----PESQUISA-> */
+
+    /* <-CADASTRO---- */
+ /* ----PESQUISA-> */
     // MÉTODOS:
-    
     // Edita os campos e colunas da tabela de resultados
-    DefaultTableModel tmLivro = new DefaultTableModel(null, new String[]{"Id","Genero","Exemplar", "Autor", "Edição", "Ano", "Disponibilidade"});
+    DefaultTableModel tmLivro = new DefaultTableModel(null, new String[]{"Id", "Genero", "Exemplar", "Autor", "Edição", "Ano", "Disponibilidade"});
     List<Livro> livros;
-    
+
     // Lista a quantidade de resultado, de acordo com o nome passado no campo pesquisa
     private void listaContatos() throws SQLException {
         limpaCampos();
         BdLivro d = new BdLivro();
-        livros = d.getLista("%" + jTPesquisar.getText() + "%"); 
-        
+        livros = d.getLista("%" + jTPesquisar.getText() + "%");
+
         // Após pesquisar os contatos, executa o método p/ exibir o resultado na tabela pesquisa
         mostraPesquisa(livros);
         livros.clear();
     }
-    
+
     // Mostra a lista de resultado de acordo com o nome passado no campo pesquisa
     private void mostraPesquisa(List<Livro> livros) {
         // Limpa a tabela sempre que for solicitado uma nova pesquisa
         limparTabela();
-        
+
         if (livros.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Nenhum registro encontrado.");
-        } else {            
+        } else {
             // Linha em branco usada no for, para cada registro é criada uma nova linha 
-            String[] linha = new String[] {null, null, null, null, null, null, null, null};
+            String[] linha = new String[]{null, null, null, null, null, null, null, null, null};
             // P/ cada registro é criada uma nova linha, cada linha recebe os campos do registro
             for (int i = 0; i < livros.size(); i++) {
                 tmLivro.addRow(linha);
@@ -499,31 +487,29 @@ public class JFLivro extends javax.swing.JFrame {
                 tmLivro.setValueAt(livros.get(i).getAutor(), i, 3);
                 tmLivro.setValueAt(livros.get(i).getEdicao(), i, 4);
                 tmLivro.setValueAt(livros.get(i).getAno(), i, 5);
-                tmLivro.setValueAt(livros.get(i).getDisponibilidade(), i, 6);               
-            }            
+                tmLivro.setValueAt(livros.get(i).getDisponibilidade(), i, 6);
+            }
         }
     }
-    
+
     // Limpa a tabela de resultados
-    private void limparTabela() {       
-        while (tmLivro.getRowCount() > 0) {            
+    private void limparTabela() {
+        while (tmLivro.getRowCount() > 0) {
             tmLivro.removeRow(0);
         }
     }
+
     /* Outra opção de limpar tabelas
     private void limparTabela() {        
         while (tmLivro.getRowCount() > 0) {                
             tmLivro.getDataVector().removeAllElements();
         }
     }
-    */  
-    /* <-PESQUISA---- */      
-    
-    
-    
-    /* ----EXCLUIR-> */
+     */
+ /* <-PESQUISA---- */
+
+ /* ----EXCLUIR-> */
     // MÉTODOS:
-    
     // Exclui resgistro
     private void excluirRegistro() throws SQLException {
         // Se algum registro estiver selecionado
@@ -550,14 +536,11 @@ public class JFLivro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Registro não selecionado.");
         }
     }
+
     /* <-EXCLUIR---- */
-    
-    
-    
-    
-    /* ----ALTERAR-> */
+
+ /* ----ALTERAR-> */
     // MÉTODOS:
-    
     // Altera registro
     private void alteraRegistro() throws SQLException {
         if (jTablePesquisa.getSelectedRow() != -1) {
@@ -565,19 +548,19 @@ public class JFLivro extends javax.swing.JFrame {
                     "Confirmação!", JOptionPane.YES_NO_OPTION);
 
             // Se a confirmação for SIM
-            if (resp == JOptionPane.YES_NO_OPTION) {                
+            if (resp == JOptionPane.YES_NO_OPTION) {
                 Livro l = new Livro();
                 BdLivro d = new BdLivro();
-                
+
                 l.setId(Integer.valueOf(jT0Id.getText()));
                 l.setExemplar(jT2Exemplar.getText());
                 l.setAutor(jT3Autor.getText());
                 l.setEdicao(Byte.valueOf(jT4Edicao.getText()));
-                l.setAno(Short.valueOf(jT5Ano.getText())); 
-                l.setDisponibilidade(jT6Status.getText());          
-                       
+                l.setAno(Short.valueOf(jT5Ano.getText()));
+                l.setDisponibilidade(jT6Status.getText());
+
                 d.altera(l);
-                
+
                 JOptionPane.showMessageDialog(rootPane, "Registro alterado com sucesso.");
                 limpaCampos();
                 desabilitaCampos();
@@ -587,14 +570,11 @@ public class JFLivro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Registro não selecionado.");
         }
     }
+
     /* <-ALTERAR---- */
-    
-    
-    
-    
-    /* ----OUTROS-> */
+
+ /* ----OUTROS-> */
     // MÉTODOS:
-    
     // Limpa os campos do formulário
     private void limpaCampos() {
         jT0Id.setText("");
@@ -604,7 +584,7 @@ public class JFLivro extends javax.swing.JFrame {
         jT5Ano.setText("");
         jT6Status.setText("");
     }
-    
+
     // Desabilita os campos do formulário
     private void desabilitaCampos() {
         jT0Id.setEditable(false);
@@ -614,22 +594,18 @@ public class JFLivro extends javax.swing.JFrame {
         jT5Ano.setEditable(false);
         jT6Status.setEditable(false);
     }
-    
+
     // Habilita os campos do formulário
     private void habilitaCampos() {
-        
+
         jT2Exemplar.setEditable(true);
         jT3Autor.setEditable(true);
         jT4Edicao.setEditable(true);
         jT5Ano.setEditable(true);
         jT6Status.setEditable(true);
     }
-    
+
     /* <-OUTROS---- */
-    
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -666,7 +642,7 @@ public class JFLivro extends javax.swing.JFrame {
                 new JFLivro().setVisible(true);
             }
         });
-    }    
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

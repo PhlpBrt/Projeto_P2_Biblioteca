@@ -282,6 +282,8 @@ public class JFGenero extends javax.swing.JFrame {
         int linhaSelecionada = jTableGenero.getSelectedRow();
 
         jT1IdCliente.setText(jTableGenero.getValueAt(linhaSelecionada, 0).toString());
+        jCBDescricao.setText(jTableGenero.getValueAt(linhaSelecionada, 1).toString());
+        jT3Tipo.setText(jTableGenero.getValueAt(linhaSelecionada, 2).toString());
 
         /*try {
             listaContatosMulta();
@@ -354,21 +356,20 @@ public class JFGenero extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Multa não selecionada.");
         }
     }
-    
+
     // Pega o ID da multa ao selecioná-la na tabela de pesquisa
-    private int pegaIdGenero() {        
+    private int pegaIdGenero() {
         int id_genero = 0;
-        
-        if (jTableGenero.getSelectedRow() != -1) {           
+
+        if (jTableGenero.getSelectedRow() != -1) {
             // Salva a posição da linha selecionada na tabela de pesquisa
             int linhaSelecionada = jTableGenero.getSelectedRow();
-            
+
             id_genero = (int) jTableGenero.getValueAt(linhaSelecionada, 0);
-        }       
+        }
         return id_genero;
     }
 
-    
     private void cadastraRegistro() {
         // Antes de cadastrar, verifica se os campos foram preenchidos
         if (verificaDados()) {
