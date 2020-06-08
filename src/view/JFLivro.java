@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Livro;
 import controller.BdLivro;
+import controller.BdUsuario;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import model.Genero;
@@ -607,6 +608,16 @@ public class JFLivro extends javax.swing.JFrame {
         jT4Edicao.setEditable(true);
         jT5Ano.setEditable(true);
         jT6Status.setEditable(true);
+    }
+
+    public void desabilitaBotao() throws SQLException {
+        BdUsuario a = new BdUsuario();
+
+        if (!a.getAdmin().equals("sim")) {
+
+            jBExcluir.setEnabled(false);
+        }
+
     }
 
     /* <-OUTROS---- */

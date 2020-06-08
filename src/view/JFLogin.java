@@ -207,11 +207,13 @@ public class JFLogin extends javax.swing.JFrame {
                 JFPrincipal telaJdbc = new JFPrincipal();
                 CriaConexao.getConnection();
                 telaJdbc.setVisible(true);
+                this.dispose();
             }else if (ButtonJPA.isSelected()){
                 JOptionPane.showMessageDialog(null, "Bem vindo! Entrou usando o banco JPA");
                 JFPrincipal telaJpa = new JFPrincipal();
                 CriaConexaoJPA.conecta();
                 telaJpa.setVisible(true);
+                this.dispose();
             }else if(ButtonJDBC.isSelected() == false || ButtonJPA.isSelected() == false){
                 JOptionPane.showMessageDialog(null, "Escolha um banco Por favor!");
                 

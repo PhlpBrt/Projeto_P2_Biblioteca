@@ -6,14 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import model.Usuario;
 import util.CriaConexao;
+import static util.CriaConexaoJPA.conecta;
 import view.JFCliente;
 
 public class BdUsuario {
     
     /* ----CONEXÃO COM O BD-> */
     private Connection conexao;
+     CriaConexao conecta;
     
     // Estabelece uma conexão
     public BdUsuario() throws SQLException {       
@@ -123,7 +126,7 @@ public class BdUsuario {
         ResultSet rs = null;
         boolean check = false;
         try {
-            stmt = this.conexao.prepareStatement("SELECT * FROM usuario WHERE login=? and senha=? and p_admin=?");
+            stmt = this.conexao.prepareStatement("SELECT * FROM usuario WHERE login=? and senha=?;");
             stmt.setString(1, login);
             stmt.setString(2, senha);
             rs = stmt.executeQuery();
@@ -159,32 +162,33 @@ public class BdUsuario {
         
     }
     
-    public boolean ckeckAdmin(String login, String senha, String admin){
+    public Vector<Usuario> getAdmin() throws SQLException{
+        // Prepara conexão p/ receber o comando SQL
+        String sql = "SELECT id_genero FROM genero";
+        PreparedStatement stmt = conecta.getConnection().prepareStatement(sql);
         
-        PreparedStatement stmt = null;
-        JFCliente campos = new JFCliente();
-        ResultSet rs = null;
-        boolean check = false;
-        try {
-            stmt = this.conexao.prepareStatement("SELECT * FROM usuario WHERE login=? and senha=? and p_admin=?");
-            stmt.setString(1, login);
-            stmt.setString(2, senha);
-            stmt.setString(3, admin);
-            rs = stmt.executeQuery();
+        // Recebe o resultado da consulta SQL
+        ResultSet rs = stmt.executeQuery();
+        
+        Vector<Usuario> lista = new Vector<Usuario>();
+        
+        // Enquanto existir registros, pega os valores do ReultSet e vai adicionando na lista
+        while(rs.next()) {
+            //  A cada loop, é instanciado um novo objeto, p/ servir de ponte no envio de registros p/ a lista
+           Usuario m = new Usuario();
             
-            if(admin == "Sim"){
-                campos.habilitaCamposUsuario();
-            }else{
-                campos.desabilitaCamposUsuario();
-            }
+            // "c" -> Registro novo - .setNome recebe o campo do banco de String "nome" 
+            m.setAdmin(rs.getString("id_genero"));
             
-            if(rs.next()){
-                check = true; 
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro ao buscar no banco");
+            // Adiciona o registro na lista
+            lista.add(m);            
         }
-        return check;
         
+        // Fecha a conexão com o BD
+        rs.close();
+        stmt.close();
+        
+        // Retorna a lista de registros, gerados pela consulta
+        return lista;          
     }
 }
