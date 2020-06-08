@@ -9,7 +9,7 @@ public class Biblioteca {
   
     public static void main(String[] args) throws SQLException, ParseException {
 
-        JFPrincipal principal = new JFPrincipal();
+        JFLogin principal = new JFLogin();
         principal.setVisible(true);
         
     }
