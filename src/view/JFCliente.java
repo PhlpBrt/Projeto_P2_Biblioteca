@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import controller.BdCliente;
+import controller.BdUsuario;
 
 
 public class JFCliente extends javax.swing.JFrame {  
@@ -21,6 +22,8 @@ public class JFCliente extends javax.swing.JFrame {
         initComponents();
         
         // Desabilita os campos ao iniciar a janela
+        BdUsuario usario;
+        //usario.ckeckLogin(login, senha)
         desabilitaCampos();
     }
     
@@ -623,6 +626,18 @@ public class JFCliente extends javax.swing.JFrame {
         jT4Cpf.setEditable(true);
         jT5Endereco.setEditable(true);
         jT6Fone.setEditable(true);
+    }
+    
+    public void desabilitaCamposUsuario() {
+        jBExcluir.setEnabled(false);
+        jBAlterar.setEnabled(false);
+        jBNovo.setEnabled(false);
+    }
+    
+    public void habilitaCamposUsuario() {
+        jBExcluir.setEnabled(true);
+        jBAlterar.setEnabled(true);
+        jBNovo.setEnabled(true);
     }
     
     /* <-OUTROS---- */

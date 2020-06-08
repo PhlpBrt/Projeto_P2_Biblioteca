@@ -14,13 +14,14 @@ import model.Genero;
 public class BdGenero {
     
     Genero g =  new Genero();
+    CriaConexao conecta;
     /* ----CONEXÃO COM O BD-> */
-    private Connection conexao;
+    //private Connection conexao;
     
     // Estabelece uma conexão
-    public BdGenero() throws SQLException {       
+    /*public BdGenero() throws SQLException {       
         this.conexao = CriaConexao.getConnection();
-    }
+    }*/
     /* <-CONEXÃO COM O BD---- */
     
     
@@ -34,7 +35,7 @@ public class BdGenero {
         String sql = "INSERT INTO genero(tipo, classificao) VALUES(?, ?)";       
         PreparedStatement stmt;
         // stmt recebe o comando SQL
-        stmt = this.conexao.prepareStatement(sql);
+        stmt = conecta.getConnection().prepareStatement(sql);
         
         // Seta os valores p/ o stmt, substituindo os "?"        
         stmt.setString(1, g.getTipo());
@@ -50,7 +51,7 @@ public class BdGenero {
     public List<Genero> getLista(String id) throws SQLException{
         // Prepara conexão p/ receber o comando SQL
         String sql = "SELECT * FROM genero WHERE id_genero like ?";
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
+        PreparedStatement stmt = conecta.getConnection().prepareStatement(sql);
         stmt.setString(1, id);
         
         // Recebe o resultado da consulta SQL
@@ -83,7 +84,7 @@ public class BdGenero {
     public Vector<Genero> getListaId() throws SQLException{
         // Prepara conexão p/ receber o comando SQL
         String sql = "SELECT id_genero FROM genero";
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
+        PreparedStatement stmt = conecta.getConnection().prepareStatement(sql);
         
         // Recebe o resultado da consulta SQL
         ResultSet rs = stmt.executeQuery();
@@ -116,7 +117,7 @@ public class BdGenero {
         // Prepara conexão p/ receber o comando SQL
         String sql = "DELETE FROM genero WHERE id_genero=?";
         // stmt recebe o comando SQL
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
+        PreparedStatement stmt = conecta.getConnection().prepareStatement(sql);
         
         // Seta o valor do ID p/ a condição de verificação SQL, dentro do stmt
         stmt.setInt(1, id);
