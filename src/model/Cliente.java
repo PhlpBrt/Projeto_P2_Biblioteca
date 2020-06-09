@@ -1,8 +1,7 @@
-
 package model;
 
 public class Cliente {
-    
+
     private int id;
     private String nome;
     private String dataNasc;
@@ -19,9 +18,9 @@ public class Cliente {
         this.endereco = endereco;
         this.fone = fone;
     }
-    
-     public Cliente() {
-    }  
+
+    public Cliente() {
+    }
 
     public int getId() {
         return id;
@@ -29,8 +28,8 @@ public class Cliente {
 
     public void setId(int id) {
         this.id = id;
-    }    
-    
+    }
+
     public String getNome() {
         return nome;
     }
@@ -77,6 +76,6 @@ public class Cliente {
 
     public void setFone(String fone) {
         this.fone = fone;
-    }  
-    
+    }
+
 }

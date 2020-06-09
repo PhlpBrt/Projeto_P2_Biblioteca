@@ -1,4 +1,3 @@
-
 package view;
 
 import java.sql.SQLException;
@@ -21,12 +20,12 @@ import model.Cliente;
 import model.Emprestimo;
 import model.Livro;
 
-public class JFEmprestimo extends javax.swing.JFrame {  
-   
+public class JFEmprestimo extends javax.swing.JFrame {
+
     JFMulta enviaValor;
     private JFPrincipal telaPrincipal;
     boolean verifica = false;
-    
+
     /**
      * Creates new form Cliente
      */
@@ -34,20 +33,20 @@ public class JFEmprestimo extends javax.swing.JFrame {
         initComponents();
         verifica = true;
         // Desabilita os campos ao iniciar a janela
-        desabilitaCamposEmprestimo();   
-        
+        desabilitaCamposEmprestimo();
+
         // Mostra a data atual como data do empréstimo        
         dataEmprestimo();
         // Mostra a data atual como data do empréstimo        
         mostraDataDevolucao();
     }
-    
+
     // Construtor que recebe a instância da tela principal
     JFEmprestimo(JFPrincipal telaPrincipal) {
-        
+
         this();
         this.telaPrincipal = telaPrincipal;
-        
+
     }
 
     /**
@@ -419,37 +418,37 @@ public class JFEmprestimo extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     // BOTÃO NOVO - Precionando
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
-        limpaCamposEmprestimo();   
+        limpaCamposEmprestimo();
         limpaTabelaEmprestimo();
         limpaTabelaCliente();
         limpaTabelaLivro();
     }//GEN-LAST:event_jBNovoActionPerformed
-      
+
     // BOTÃO CADASTRAR - Precionando
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        try {  
+        try {
             cadastraRegistro();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro ao efetuar empréstimo.");
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
-     
+
     // BOTÃO PESQUISAR - Precionando
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
         // Ao clicar em pesquisar, é executado o método que efetua a pesquisa, e outro método que exibe a lista da pesquisa
-        
-        if (!(jRClientes.isSelected() || jRLivros.isSelected())) {            
-            JOptionPane.showMessageDialog(rootPane, "Selecione um campo de pesquisa.");            
-        } else if (jRClientes.isSelected()) {  
+
+        if (!(jRClientes.isSelected() || jRLivros.isSelected())) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um campo de pesquisa.");
+        } else if (jRClientes.isSelected()) {
             // Quando seleciona PESQUISA CLIENTE
             try {
                 listaContatosCliente();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao efetuar empréstimo.");
-            }            
+            }
         } else if (jRLivros.isSelected()) {
             // Quando seleciona PESQUISA LIVROS
             try {
@@ -458,14 +457,14 @@ public class JFEmprestimo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Problemas ao listar contatos.");
             }
         }
-        
+
     }//GEN-LAST:event_jBPesquisarActionPerformed
-    
+
     // TABELA EMPRÉSTIMO - Selecionando registro com o clique do mouse
     private void jTableEmprestimoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmprestimoMouseClicked
-     
+
     }//GEN-LAST:event_jTableEmprestimoMouseClicked
-    
+
     // BOTÃO EXCLUIR - Precionando
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         try {
@@ -474,12 +473,12 @@ public class JFEmprestimo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro ao excluir registro.");
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
-    
+
     // TABELA LIVRO - Selecionando registro com o clique do mouse
     private void jTableLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLivroMouseClicked
         // Salva a posição da linha selecionada na tabela de pesquisa
         int linhaSelecionada = jTableLivro.getSelectedRow();
-        
+
         jT2IdLivro.setText(jTableLivro.getValueAt(linhaSelecionada, 0).toString());
     }//GEN-LAST:event_jTableLivroMouseClicked
 
@@ -487,16 +486,16 @@ public class JFEmprestimo extends javax.swing.JFrame {
     private void jTableClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClienteMouseClicked
         // Salva a posição da linha selecionada na tabela de pesquisa
         int linhaSelecionada = jTableCliente.getSelectedRow();
-        
-        jT1IdCliente.setText(jTableCliente.getValueAt(linhaSelecionada, 0).toString()); 
-        
+
+        jT1IdCliente.setText(jTableCliente.getValueAt(linhaSelecionada, 0).toString());
+
         try {
             listaContatosEmprestimo();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro ao listar emprestimos.");
         }
     }//GEN-LAST:event_jTableClienteMouseClicked
-    
+
     // BOTÃO DEVOLVER
     private void jBDevolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBDevolverMouseClicked
         try {
@@ -505,27 +504,23 @@ public class JFEmprestimo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro ao devolver livro.");
         } catch (ParseException ex) {
             Logger.getLogger(JFEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }//GEN-LAST:event_jBDevolverMouseClicked
-    
+
     // FECHANDO A JANELA
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
+
         // Habilita a tabela principal
         telaPrincipal.setEnabled(true);
-        
+
     }//GEN-LAST:event_formWindowClosed
 
     private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_jBSairActionPerformed
-    
-    
-    
-    
+
     /* ----CADASTRO-> */
     // MÉTODOS:
-    
     // Método p/ cadastrar um registro no banco de dados.
     private void cadastraRegistro() throws SQLException {
         // Antes de cadastrar, verifica se o usuário está com algum registro selecionado
@@ -569,193 +564,186 @@ public class JFEmprestimo extends javax.swing.JFrame {
                     + "Para fazer um novo empréstimo clique em 'Novo'.");
         }
     }
-    
+
     // Método p/ validação do formulário
     private boolean verificaDados() {
-        if ((!jT1IdCliente.getText().equals("")) && (!jT2IdLivro.getText().equals("")) 
+        if ((!jT1IdCliente.getText().equals("")) && (!jT2IdLivro.getText().equals(""))
                 && (!jT3DataEmprestimo.getText().equals(""))) {
             return true;
         }
         JOptionPane.showMessageDialog(rootPane, "Dados imcompletos.");
         return false;
     }
-    
+
     // Pega o campo disponibilidade do livro selecionado
     public String disponibilidadeLivro() {
         // Salva a posição da linha selecionada na tabela de pesquisa
-        int linhaSelecionada = jTableLivro.getSelectedRow();        
-        String status = (String) jTableLivro.getValueAt(linhaSelecionada, 3);  
-        
+        int linhaSelecionada = jTableLivro.getSelectedRow();
+        String status = (String) jTableLivro.getValueAt(linhaSelecionada, 3);
+
         return status;
     }
-    
+
     // Método p/ verifica se o livro está disponível
     private boolean verificaDisponibilidadeLivro() {
-        if (! disponibilidadeLivro().equals("0")) {
+        if (!disponibilidadeLivro().equals("0")) {
             return true;
         }
         JOptionPane.showMessageDialog(rootPane, "Livro selecionado está indisponível.");
         return false;
     }
-    /* <-CADASTRO---- */ 
-    
-    
-    
-    
-    /* ----DATAS-> */
-    
+
+    /* <-CADASTRO---- */
+
+ /* ----DATAS-> */
     // Exibe a data do empréstimo(data atual) no formulário
     private void dataEmprestimo() {
-        Date data = new Date();  
-        
-        SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");  
-        String s = formataData.format( data ); 
-        
-        jT3DataEmprestimo.setText(formataData.format(data));      
-    }   
+        Date data = new Date();
+
+        SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
+        String s = formataData.format(data);
+
+        jT3DataEmprestimo.setText(formataData.format(data));
+    }
+
     // Retorna a data de empréstimo
     private String salvaDataEmprestimo() {
-        Date data = new Date();  
-        
-        SimpleDateFormat formataData = new SimpleDateFormat("yyyy-MM-dd");  
-        String dataEmprestimoFormatada = formataData.format(data); 
-        
-        return dataEmprestimoFormatada;   
-    }  
-    
+        Date data = new Date();
+
+        SimpleDateFormat formataData = new SimpleDateFormat("yyyy-MM-dd");
+        String dataEmprestimoFormatada = formataData.format(data);
+
+        return dataEmprestimoFormatada;
+    }
+
     // Exibe a data de devolução no formulário
-    private void mostraDataDevolucao() {        
+    private void mostraDataDevolucao() {
         // Recebe a data do sistema
         Date dataDevolucao = new Date();
         // Adiciona + 10 à data atual
         dataDevolucao.setDate(dataDevolucao.getDate() + 7);
-        
+
         // Formata a data recebida
-        SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");        
+        SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
         String dataDevolucaoFormatada = formataData.format(dataDevolucao);
-                
+
         jT4DataDevolucao.setText(dataDevolucaoFormatada);
-    }    
+    }
+
     // Retorna a data de devolução, pronta p/ ser salva no BD
     public String salvaDataDevolucao() {
         // Recebe a data do sistema
         Date dataDevolucao = new Date();
         // Adiciona + 10 à data atual
         dataDevolucao.setDate(dataDevolucao.getDate() + 7);
-        
+
         // Formata a data recebida
-        SimpleDateFormat formataData = new SimpleDateFormat("yyyy-MM-dd");        
+        SimpleDateFormat formataData = new SimpleDateFormat("yyyy-MM-dd");
         String dataDevolucaoFormatada = formataData.format(dataDevolucao);
-        
+
         return dataDevolucaoFormatada;
     }
-    
+
     // Pega a data de devolução no registro selecionado na tebela de emprestimo
     public String pegaDataDevolucaoTabela() throws ParseException {
-        
-        int linhaSelecionada = jTableEmprestimo.getSelectedRow();   
+
+        int linhaSelecionada = jTableEmprestimo.getSelectedRow();
         String dataTabela = (jTableEmprestimo.getValueAt(linhaSelecionada, 4)).toString();
-        
-        SimpleDateFormat formataData = new SimpleDateFormat ("yyyy-MM-dd"); 
+
+        SimpleDateFormat formataData = new SimpleDateFormat("yyyy-MM-dd");
         Date dataDevolucao = new Date();
-        
-        dataDevolucao = formataData.parse(dataTabela); 
-        
+
+        dataDevolucao = formataData.parse(dataTabela);
+
         return formataData.format(dataDevolucao);
     }
-    
+
     // Calcula a diferença entre a data prevista para devolução e a data atual
     private long diferencaData() throws ParseException {
         LocalDate atual = LocalDate.now();
         LocalDate dataDevolucao = LocalDate.parse(pegaDataDevolucaoTabela());
-        
+
         long diferenca = 0;
-        
+
         if (dataDevolucao.compareTo(atual) < 0) {
             diferenca = ChronoUnit.DAYS.between(dataDevolucao, atual);
         }
-        
-        return diferenca;       
+
+        return diferenca;
     }
-    
-    /* <-DATAS---- */ 
-    
-    
-    
-    
-    /* ----PESQUISA-> */
+
+    /* <-DATAS---- */
+ /* ----PESQUISA-> */
     // MÉTODOS:          
-    
-    /* ----CLIENTE-> */ 
+    /* ----CLIENTE-> */
     // Configura campos da tabela de pesquisas de acordo com os campos do Cliente
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "CPF"});    
+    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "CPF"});
     // Lista de clientes, recebe os registros retornados da pesquisa
-    List<Cliente> clientes;  
-    
+    List<Cliente> clientes;
+
     // Lista a quantidade de resultado, de acordo com o nome passado no campo pesquisa
-    private void listaContatosCliente() throws SQLException {        
+    private void listaContatosCliente() throws SQLException {
         BdCliente d = new BdCliente();
-        clientes = d.getLista("%" + jTPesquisar.getText() + "%"); 
-        
+        clientes = d.getLista("%" + jTPesquisar.getText() + "%");
+
         // Após pesquisar os contatos, executa o método p/ exibir o resultado na tabela pesquisa
         mostraPesquisaCliente(clientes);
         clientes.clear();
     }
-    
+
     // Mostra a lista de resultado de acordo com o nome passado no campo pesquisa
     private void mostraPesquisaCliente(List<Cliente> clientes) {
         // Limpa a tabela sempre que for solicitado uma nova pesquisa
         limpaTabelaCliente();
-        
+
         if (clientes.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Nenhum registro não encontrado.");
-        } else {            
+        } else {
             // Linha em branco usada no for, para cada registro é criada uma nova linha 
-            String[] linha = new String[] {null, null, null};
+            String[] linha = new String[]{null, null, null};
             // P/ cada registro é criada uma nova linha, cada recebe linha os campos do registro
             for (int i = 0; i < clientes.size(); i++) {
                 tmCliente.addRow(linha);
                 tmCliente.setValueAt(clientes.get(i).getId(), i, 0);
                 tmCliente.setValueAt(clientes.get(i).getNome(), i, 1);
-                tmCliente.setValueAt(clientes.get(i).getCpf(), i, 2);              
-            }            
+                tmCliente.setValueAt(clientes.get(i).getCpf(), i, 2);
+            }
         }
-    }   
-    
+    }
+
     // Limpa a tabela de resultados
-    private void limpaTabelaCliente() {       
-        while (tmCliente.getRowCount() > 0) {            
+    private void limpaTabelaCliente() {
+        while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
         }
-    } 
+    }
     /*<-CLIENTE----*/
-    
-    
-    /*----EMPRÉSTIMO->*/    
+
+ /*----EMPRÉSTIMO->*/
     // Configura campos da tabela de pesquisas de acordo com os campos dos Empréstimos
     DefaultTableModel tmEmprestimo = new DefaultTableModel(null, new String[]{"ID", "ID Cliente", "ID Livro", "Data Emprestimo", "Data Devolução"});
     // Lista de empréstimos, recebe os registros retornados da pesquisa
     List<Emprestimo> emprestimos;
-    
+
     // Lista a quantidade de resultado, de acordo com o nome passado no campo pesquisa
-    private void listaContatosEmprestimo() throws SQLException { 
+    private void listaContatosEmprestimo() throws SQLException {
         BdEmprestimo d = new BdEmprestimo();
-        emprestimos = d.getListaPorCliente(pegaIdCliente()); 
-        
+        emprestimos = d.getListaPorCliente(pegaIdCliente());
+
         // Após pesquisar os contatos, executa o método p/ exibir o resultado na tabela pesquisa
         mostraPesquisaEmprestimo(emprestimos);
         emprestimos.clear();
     }
-    
+
     // Mostra a lista de resultado de acordo com o nome passado no campo pesquisa
     private void mostraPesquisaEmprestimo(List<Emprestimo> emprestimos) {
         // Limpa a tabela sempre que for solicitado uma nova pesquisa
         limpaTabelaEmprestimo();
-        
+
         if (emprestimos.isEmpty()) {
-        } else {            
+        } else {
             // Linha em branco usada no for, para cada registro é criada uma nova linha 
-            String[] linha = new String[] {null, null, null, null, null};
+            String[] linha = new String[]{null, null, null, null, null};
             // P/ cada registro é criada uma nova linha, cada linha recebe os campos do registro
             for (int i = 0; i < emprestimos.size(); i++) {
                 tmEmprestimo.addRow(linha);
@@ -763,72 +751,67 @@ public class JFEmprestimo extends javax.swing.JFrame {
                 tmEmprestimo.setValueAt(emprestimos.get(i).getId_cliente(), i, 1);
                 tmEmprestimo.setValueAt(emprestimos.get(i).getId_livro(), i, 2);
                 tmEmprestimo.setValueAt(emprestimos.get(i).getData_emprestimo(), i, 3);
-                tmEmprestimo.setValueAt(emprestimos.get(i).getData_devolucao(), i, 4);              
-            }            
+                tmEmprestimo.setValueAt(emprestimos.get(i).getData_devolucao(), i, 4);
+            }
         }
-    } 
-    
+    }
+
     // Limpa a tabela de resultados
-    private void limpaTabelaEmprestimo() {       
-        while (tmEmprestimo.getRowCount() > 0) {            
+    private void limpaTabelaEmprestimo() {
+        while (tmEmprestimo.getRowCount() > 0) {
             tmEmprestimo.removeRow(0);
         }
-    } 
-    /*<-EMPRESTIMO----*/    
-    
-   
-    /* ----LIVRO-> */    
+    }
+    /*<-EMPRESTIMO----*/
+
+ /* ----LIVRO-> */
     // Edita os campos e colunas da tabela de resultados
     DefaultTableModel tmLivro = new DefaultTableModel(null, new String[]{"Id", "Exemplar", "Autor", "Disponibilidade"});
     List<Livro> livros;
-    
+
     // Lista a quantidade de resultado, de acordo com o nome passado no campo pesquisa
     private void listaContatosLivro() throws SQLException {
         BdLivro d = new BdLivro();
-        livros = d.getLista("%" + jTPesquisar.getText() + "%"); 
-        
+        livros = d.getLista("%" + jTPesquisar.getText() + "%");
+
         // Após pesquisar os contatos, executa o método p/ exibir o resultado na tabela pesquisa
         mostraPesquisaLivro(livros);
         livros.clear();
     }
-    
+
     // Mostra a lista de resultado de acordo com o nome passado no campo pesquisa
     private void mostraPesquisaLivro(List<Livro> livros) {
         // Limpa a tabela sempre que for solicitado uma nova pesquisa
         limpaTabelaLivro();
-        
+
         if (livros.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Nenhum registro encontrado.");
-        } else {            
+        } else {
             // Linha em branco usada no for, para cada registro é criada uma nova linha 
-            String[] linha = new String[] {null, null, null, null};
+            String[] linha = new String[]{null, null, null, null};
             // P/ cada registro é criada uma nova linha, cada linha recebe os campos do registro
             for (int i = 0; i < livros.size(); i++) {
                 tmLivro.addRow(linha);
                 tmLivro.setValueAt(livros.get(i).getId(), i, 0);
                 tmLivro.setValueAt(livros.get(i).getExemplar(), i, 1);
                 tmLivro.setValueAt(livros.get(i).getAutor(), i, 2);
-                tmLivro.setValueAt(livros.get(i).getDisponibilidade(), i, 3);                
-            }            
+                tmLivro.setValueAt(livros.get(i).getDisponibilidade(), i, 3);
+            }
         }
     }
-    
+
     // Limpa a tabela de resultados
-    private void limpaTabelaLivro() {       
-        while (tmLivro.getRowCount() > 0) {            
+    private void limpaTabelaLivro() {
+        while (tmLivro.getRowCount() > 0) {
             tmLivro.removeRow(0);
         }
     }
-    /* <-LIVRO---- */  
-        
-    /* <-PESQUISA---- */      
-    
-    
-    
-    
-    /* ----EXCLUIR-> */
+
+    /* <-LIVRO---- */
+
+ /* <-PESQUISA---- */
+ /* ----EXCLUIR-> */
     // MÉTODOS:
-    
     // Exclui resgistro
     private void excluirRegistro() throws SQLException {
         // Se algum registro estiver selecionado
@@ -849,37 +832,34 @@ public class JFEmprestimo extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso.");
                 alteraDisponibilidade("1");
-                
+
                 listaContatosEmprestimo();
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Registro não selecionado.");
         }
     }
+
     /* <-EXCLUIR---- */
-    
-    
-    
-    
-    /* ----ALTERAR-> */
+
+ /* ----ALTERAR-> */
     // MÉTODOS:
-        
     // Altera a disponibilidade do livro
     private void alteraDisponibilidade(String status) throws SQLException {
-        if ((jTableCliente.getSelectedRow() != -1) || (jTableLivro.getSelectedRow() != -1)) {  
-                Livro l = new Livro();
-                BdLivro d = new BdLivro();             
-                
-                // Recebe o id do livro, que está sendo exibido no formulário
-                l.setId(Integer.valueOf(pegaIdLivro()));
-                l.setDisponibilidade(status);          
-                       
-                d.alteraDisponibilidadeLivro(l);           
+        if ((jTableCliente.getSelectedRow() != -1) || (jTableLivro.getSelectedRow() != -1)) {
+            Livro l = new Livro();
+            BdLivro d = new BdLivro();
+
+            // Recebe o id do livro, que está sendo exibido no formulário
+            l.setId(Integer.valueOf(pegaIdLivro()));
+            l.setDisponibilidade(status);
+
+            d.alteraDisponibilidadeLivro(l);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Livro não selecionado.");
         }
     }
-    
+
     // Pega o ID do livro referente ao empréstimo selecionado na tabela de pesquisa
     private String pegaIdLivro() {
         int linhaSelecionada;
@@ -894,17 +874,15 @@ public class JFEmprestimo extends javax.swing.JFrame {
 
         return s;
     }
+
     /* <-ALTERAR---- */
-    
-    
-    
-    
-    /* ----DEVOLVER-> */
+
+ /* ----DEVOLVER-> */
     private void devolveLivro() throws SQLException, ParseException {
         if (jTableEmprestimo.getSelectedRow() != -1) {
             // Altera a disponibilidade do livro
-            alteraDisponibilidade("1");          
-            
+            alteraDisponibilidade("1");
+
             // Exclui o registo de empréstimo
             // Recebe a linha selecionada
             int linhaSelecionada = jTableEmprestimo.getSelectedRow();
@@ -912,41 +890,38 @@ public class JFEmprestimo extends javax.swing.JFrame {
             int id = (int) jTableEmprestimo.getValueAt(linhaSelecionada, 0);
             // Remove o registro, usando como parâmetro, o id da linha selecionada                
             BdEmprestimo d = new BdEmprestimo();
-            d.remove(id);         
-            
+            d.remove(id);
+
             if (diferencaData() > 0) {
                 passaValor(String.valueOf(diferencaData()));
                 JOptionPane.showMessageDialog(rootPane, "Emprestimo devolvido após o prazo de vencimento\n"
                         + "gerando uma multa para o cliente."
                         + "\n\nPassou " + diferencaData() + " dias do prazo. Esta multa deve ser registrada...");
-                        
+
                 listaContatosEmprestimo();
-                listaContatosLivro();    
+                listaContatosLivro();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Emprestimo devolvido com sucesso.");
                 listaContatosEmprestimo();
-                listaContatosLivro();                
-            }           
-            
+                listaContatosLivro();
+            }
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Emprestimo não selecionado.");
         }
     }
+
     /* <-DEVOLVER---- */
-    
-    
-    
-    
-    /* ----OUTROS-> */
+
+ /* ----OUTROS-> */
     // MÉTODOS:
-    
     // Limpa os campos do formulário
     private void limpaCamposEmprestimo() {
         jT0IdEmprestimo.setText("");
         jT1IdCliente.setText("");
         jT2IdLivro.setText("");
     }
-    
+
     // Desabilita os campos do formulário
     private void desabilitaCamposEmprestimo() {
         jT0IdEmprestimo.setEditable(false);
@@ -954,29 +929,25 @@ public class JFEmprestimo extends javax.swing.JFrame {
         jT2IdLivro.setEditable(false);
         jT3DataEmprestimo.setEditable(false);
         jT4DataDevolucao.setEditable(false);
-    }    
-    
+    }
+
     // Passando dados para a janela de multas
     private void passaValor(String valor) throws ParseException, SQLException {
         enviaValor = new JFMulta();
         enviaValor.setVisible(true);
         enviaValor.recebe(String.valueOf(diferencaData()), pegaIdCliente());
     }
-    
+
     // Passa os dados do cliente referente a multa
     private String pegaIdCliente() throws SQLException {
         int linhaSelecionada = jTableCliente.getSelectedRow();
-                        
-        String s = jTableCliente.getValueAt(linhaSelecionada, 0).toString();  
-        
+
+        String s = jTableCliente.getValueAt(linhaSelecionada, 0).toString();
+
         return s;
     }
-    
+
     /* <-OUTROS---- */
-    
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -1017,7 +988,7 @@ public class JFEmprestimo extends javax.swing.JFrame {
                 new JFEmprestimo().setVisible(true);
             }
         });
-    }    
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

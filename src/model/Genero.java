@@ -1,7 +1,7 @@
 package model;
 
 public class Genero {
-    
+
     private int id_genero;
     private String tipo;
     private String classificao;
@@ -41,9 +41,7 @@ public class Genero {
 
     @Override
     public String toString() {
-        return  "" + id_genero;
+        return "" + id_genero;
     }
-    
-    
-    
+
 }

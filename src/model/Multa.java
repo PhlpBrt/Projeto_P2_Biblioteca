@@ -1,7 +1,7 @@
-
 package model;
 
 public class Multa {
+
     private int id_multa;
     private int id_cliente;
     private String descricao;
@@ -48,5 +48,5 @@ public class Multa {
     public void setValor(float valor) {
         this.valor = valor;
     }
-    
+
 }

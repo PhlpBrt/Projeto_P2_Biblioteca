@@ -1,4 +1,3 @@
-
 package view;
 
 import java.sql.SQLException;
@@ -9,32 +8,31 @@ import model.Cliente;
 import controller.BdCliente;
 import controller.BdUsuario;
 
+public class JFCliente extends javax.swing.JFrame {
 
-public class JFCliente extends javax.swing.JFrame {  
-   
     // Variável que recebe a instância da tela principal
     private JFPrincipal telaPrincipal;
-    
+
     /**
      * Creates new form Cliente
      */
     public JFCliente() {
         initComponents();
-        
+
         // Desabilita os campos ao iniciar a janela
         BdUsuario usario;
         //usario.ckeckLogin(login, senha)
         desabilitaCampos();
     }
-    
+
     // Construtor reabilita tela principal - recebe a instância
     JFCliente(JFPrincipal telaPrincipal) {
-        
+
         // this(esta janela 'jFCliente') - abre a própria janela ao execultar o contrutor
         this();
-        
+
         this.telaPrincipal = telaPrincipal;
-        
+
     }
 
     /**
@@ -337,34 +335,34 @@ public class JFCliente extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     // BOTÃO NOVO - Precionando
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
         habilitaCampos();
         // Limpa os dados dos campos
-        limpaCampos();        
+        limpaCampos();
     }//GEN-LAST:event_jBNovoActionPerformed
-      
+
     // BOTÃO CADASTRAR - Precionando
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        cadastraRegistro();  
+        cadastraRegistro();
     }//GEN-LAST:event_jBCadastrarActionPerformed
-     
+
     // BOTÃO PESQUISAR - Precionando
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
         // Ao clicar em pesquisar, é executado o método que efetua a pesquisa, e outro método que exibe a lista da pesquisa
-        try {            
-            listaContatos(); 
+        try {
+            listaContatos();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Problemas ao listar contatos.");            
+            JOptionPane.showMessageDialog(rootPane, "Problemas ao listar contatos.");
         }
     }//GEN-LAST:event_jBPesquisarActionPerformed
-    
+
     // TABELA PESQUISA - Selecionando registro com o clique do mouse
     private void jTablePesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePesquisaMouseClicked
         // Salva a posição da linha selecionada na tabela de pesquisa
         int linhaSelecionada = jTablePesquisa.getSelectedRow();
-        
+
         jT0Id.setText(jTablePesquisa.getValueAt(linhaSelecionada, 0).toString());
         jT1Nome.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 1));
         jT2DataAno.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 2));
@@ -372,11 +370,11 @@ public class JFCliente extends javax.swing.JFrame {
         jT4Cpf.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 4));
         jT5Endereco.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 5));
         jT6Fone.setText((String) jTablePesquisa.getValueAt(linhaSelecionada, 6));
-        
+
         // Ao selecionar um registro, os campos são ativados possibilitando fazer alterações
         habilitaCampos();
     }//GEN-LAST:event_jTablePesquisaMouseClicked
-    
+
     // BOTÃO EXCLUIR - Precionando
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         try {
@@ -395,22 +393,18 @@ public class JFCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
+
         // habilita a janela principal
         telaPrincipal.setEnabled(true);
-        
+
     }//GEN-LAST:event_formWindowClosed
 
     private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_jBSairActionPerformed
-    
-    
-    
-    
+
     /* ----CADASTRO-> */
     // MÉTODOS:
-    
     // Método p/ cadastrar um registro no banco de dados.
     private void cadastraRegistro() {
         // Antes de cadastrar, verifica se o usuário está com algum registro selecionado
@@ -419,7 +413,7 @@ public class JFCliente extends javax.swing.JFrame {
             if (verificaDados()) {
                 try {
                     Cliente c = new Cliente();
-                    
+
                     c.setNome(jT1Nome.getText());
                     c.setDataNasc(data());
                     c.setSexo(jT3Sexo.getText());
@@ -436,7 +430,7 @@ public class JFCliente extends javax.swing.JFrame {
                     desabilitaCampos();
 
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(rootPane,  "Erro ao cadastrar cliente.");
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar cliente.");
                     System.out.println(ex);
                 }
             }
@@ -444,58 +438,53 @@ public class JFCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Para cadastrar um novo registro.\nClique em 'Novo'.");
         }
     }
-    
+
     // Método p/ validação do formulário
     private boolean verificaDados() {
-        if ((!jT1Nome.getText().equals("")) && (!jT2DataAno.getText().equals("")) 
+        if ((!jT1Nome.getText().equals("")) && (!jT2DataAno.getText().equals(""))
                 && (!jT3Sexo.getText().equals("")) && (!jT4Cpf.getText().equals(""))
-                && (!jT5Endereco.getText().equals(""))) {            
+                && (!jT5Endereco.getText().equals(""))) {
             return true;
         }
         JOptionPane.showMessageDialog(rootPane, "Dados imcompletos.");
         return false;
     }
-    
+
     // Método p/ concatenar a data
     private String data() {
         String d = jT2DataAno.getText() + "-" + jT2DataMes.getText() + "-" + jT2DataDia.getText();
-        
+
         return d;
     }
-    /* <-CADASTRO---- */ 
-    
-    
-    
-    
-    /* ----PESQUISA-> */
+    /* <-CADASTRO---- */
+
+ /* ----PESQUISA-> */
     // MÉTODOS:
-    
     // Edita os campos e colunas da tabela de resultados
     DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Data Nasc.", "Sexo", "CPF", "Endereço", "Fone"});
     List<Cliente> clientes;
-        
-    
+
     // Lista a quantidade de resultado, de acordo com o nome passado no campo pesquisa
     private void listaContatos() throws SQLException {
         limpaCampos();
         BdCliente d = new BdCliente();
-        clientes = d.getLista("%" + jTPesquisar.getText() + "%"); 
-        
+        clientes = d.getLista("%" + jTPesquisar.getText() + "%");
+
         // Após pesquisar os contatos, executa o método p/ exibir o resultado na tabela pesquisa
         mostraPesquisa(clientes);
         clientes.clear();
     }
-    
+
     // Mostra a lista de resultado de acordo com o nome passado no campo pesquisa
     private void mostraPesquisa(List<Cliente> clientes) {
         // Limpa a tabela sempre que for solicitado uma nova pesquisa
         limparTabela();
-        
+
         if (clientes.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Nenhum registro encontrado.");
-        } else {            
+        } else {
             // Linha em branco usada no for, para cada registro é criada uma nova linha 
-            String[] linha = new String[] {null, null, null, null, null, null, null};
+            String[] linha = new String[]{null, null, null, null, null, null, null};
             // P/ cada registro é criada uma nova linha, cada recebe linha os campos do registro
             for (int i = 0; i < clientes.size(); i++) {
                 tmCliente.addRow(linha);
@@ -505,24 +494,22 @@ public class JFCliente extends javax.swing.JFrame {
                 tmCliente.setValueAt(clientes.get(i).getSexo(), i, 3);
                 tmCliente.setValueAt(clientes.get(i).getCpf(), i, 4);
                 tmCliente.setValueAt(clientes.get(i).getEndereco(), i, 5);
-                tmCliente.setValueAt(clientes.get(i).getFone(), i, 6);                
-            }            
+                tmCliente.setValueAt(clientes.get(i).getFone(), i, 6);
+            }
         }
     }
-    
+
     // Limpa a tabela de resultados
-    private void limparTabela() {       
-        while (tmCliente.getRowCount() > 0) {            
+    private void limparTabela() {
+        while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
         }
-    } 
-    /* <-PESQUISA---- */      
-    
-    
-    
-    /* ----EXCLUIR-> */
+    }
+
+    /* <-PESQUISA---- */
+
+ /* ----EXCLUIR-> */
     // MÉTODOS:
-    
     // Exclui resgistro
     private void excluirRegistro() throws SQLException {
         // Se algum registro estiver selecionado
@@ -549,14 +536,11 @@ public class JFCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Registro não selecionado.");
         }
     }
+
     /* <-EXCLUIR---- */
-    
-    
-    
-    
-    /* ----ALTERAR-> */
+
+ /* ----ALTERAR-> */
     // MÉTODOS:
-    
     // Altera registro
     private void alteraRegistro() throws SQLException {
         if (jTablePesquisa.getSelectedRow() != -1) {
@@ -564,20 +548,20 @@ public class JFCliente extends javax.swing.JFrame {
                     "Confirmação!", JOptionPane.YES_NO_OPTION);
 
             // Se a confirmação for SIM
-            if (resp == JOptionPane.YES_NO_OPTION) {                
+            if (resp == JOptionPane.YES_NO_OPTION) {
                 Cliente c = new Cliente();
                 BdCliente d = new BdCliente();
-                
+
                 c.setId(Integer.valueOf(jT0Id.getText()));
                 c.setNome(jT1Nome.getText());
                 c.setDataNasc(jT2DataAno.getText());
                 c.setSexo(jT3Sexo.getText());
-                c.setCpf(jT4Cpf.getText());                
+                c.setCpf(jT4Cpf.getText());
                 c.setEndereco(jT5Endereco.getText());
-                c.setFone(jT6Fone.getText());         
+                c.setFone(jT6Fone.getText());
 
                 d.altera(c);
-                
+
                 JOptionPane.showMessageDialog(rootPane, "Registro alterado com sucesso.");
                 limpaCampos();
                 desabilitaCampos();
@@ -587,14 +571,11 @@ public class JFCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Registro não selecionado.");
         }
     }
+
     /* <-ALTERAR---- */
-    
-    
-    
-    
-    /* ----OUTROS-> */
+
+ /* ----OUTROS-> */
     // MÉTODOS:
-    
     // Limpa os campos do formulário
     private void limpaCampos() {
         jT0Id.setText("");
@@ -603,9 +584,9 @@ public class JFCliente extends javax.swing.JFrame {
         jT3Sexo.setText("");
         jT4Cpf.setText("");
         jT5Endereco.setText("");
-        jT6Fone.setText(""); 
+        jT6Fone.setText("");
     }
-    
+
     // Desabilita os campos do formulário
     private void desabilitaCampos() {
         jT0Id.setEditable(false);
@@ -616,10 +597,10 @@ public class JFCliente extends javax.swing.JFrame {
         jT5Endereco.setEditable(false);
         jT6Fone.setEditable(false);
     }
-    
+
     // Habilita os campos do formulário
     private void habilitaCampos() {
-        
+
         jT1Nome.setEditable(true);
         jT2DataAno.setEditable(true);
         jT3Sexo.setEditable(true);
@@ -627,24 +608,20 @@ public class JFCliente extends javax.swing.JFrame {
         jT5Endereco.setEditable(true);
         jT6Fone.setEditable(true);
     }
-    
+
     public void desabilitaCamposUsuario() {
         jBExcluir.setEnabled(false);
         jBAlterar.setEnabled(false);
         jBNovo.setEnabled(false);
     }
-    
+
     public void habilitaCamposUsuario() {
         jBExcluir.setEnabled(true);
         jBAlterar.setEnabled(true);
         jBNovo.setEnabled(true);
     }
-    
+
     /* <-OUTROS---- */
-    
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -680,7 +657,7 @@ public class JFCliente extends javax.swing.JFrame {
                 new JFCliente().setVisible(true);
             }
         });
-    }    
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

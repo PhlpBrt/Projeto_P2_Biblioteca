@@ -1,19 +1,20 @@
 package model;
 
 public class Usuario {
+
     private int id;
     private String login;
     private String senha;
     private String admin;
 
-    public Usuario(String login, String senha,String admin) {
+    public Usuario(String login, String senha, String admin) {
         this.login = login;
         this.senha = senha;
         this.admin = admin;
     }
-    
-     public Usuario() {
-    }  
+
+    public Usuario() {
+    }
 
     public int getId() {
         return id;
@@ -46,5 +47,5 @@ public class Usuario {
     public String getAdmin() {
         return admin;
     }
-    
+
 }

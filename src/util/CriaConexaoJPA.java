@@ -9,15 +9,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class CriaConexaoJPA {
-    
-    
-    public static void conecta(){
+
+    public static void conecta() {
         //Realiza conexão com o MySQL
-	EntityManagerFactory emf;
+        EntityManagerFactory emf;
     }
-	//Realizar as operações de CRUD
-	EntityManager em;
-        
-        
-    
+    //Realizar as operações de CRUD
+    EntityManager em;
+
 }

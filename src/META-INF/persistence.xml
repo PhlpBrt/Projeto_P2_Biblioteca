@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0"
-	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
     <persistence-unit name="root" transaction-type="RESOURCE_LOCAL">  
-    	<provider>org.hibernate.ejb.HibernatePersistence</provider>  
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>  
         <properties>
-       		<property name="hibernate.archive.autodetection" value="class" />
+            <property name="hibernate.archive.autodetection" value="class" />
        		 
             <!-- Conexão com o banco de dados -->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/livraria" />
-			<property name="hibernate.connection.user" value="root" />
-			<property name="hibernate.connection.password" value="06111998" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/livraria" />
+            <property name="hibernate.connection.user" value="root" />
+            <property name="hibernate.connection.password" value="06111998" />
             <property name="hibernate.hbm2ddl.auto" value="update"/>
  
             <!--Configuracoes de Debug-->
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
-			<property name="use_sql_comments" value="true" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="use_sql_comments" value="true" />
 			
-		</properties>
+        </properties>
     </persistence-unit>
 </persistence>

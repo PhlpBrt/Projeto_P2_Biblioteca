@@ -1,8 +1,7 @@
-
 package model;
 
 public class Livro {
-    
+
     private int id;
     private int id_genero;
     private String exemplar;
@@ -22,8 +21,8 @@ public class Livro {
     }
 
     public Livro() {
-    }   
-    
+    }
+
     public int getId() {
         return id;
     }
@@ -70,7 +69,7 @@ public class Livro {
 
     public void setDisponibilidade(String disponibilidade) {
         this.disponibilidade = disponibilidade;
-    }    
+    }
 
     public int getId_genero() {
         return id_genero;

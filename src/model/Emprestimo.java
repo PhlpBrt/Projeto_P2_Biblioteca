@@ -1,8 +1,7 @@
-
 package model;
 
 public class Emprestimo {
-    
+
     private int id_emprestimo;
     private int id_cliente;
     private int id_livro;
@@ -10,7 +9,7 @@ public class Emprestimo {
     private String data_devolucao;
 
     public Emprestimo() {
-    }   
+    }
 
     public Emprestimo(int id_emprestimo, int id_cliente, int id_livro, String data_emprestimo, String data_devolucao) {
         this.id_emprestimo = id_emprestimo;
@@ -59,5 +58,5 @@ public class Emprestimo {
     public void setData_devolucao(String data_devolucao) {
         this.data_devolucao = data_devolucao;
     }
-    
+
 }
